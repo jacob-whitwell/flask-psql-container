@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table id="customers">
+    <tr>
+        <th>
+            id
+        </th>
+        <th>
+            firstname
+        </th>
+        <th>
+            lastname
+        </th>
+    </tr>
+{% for user in list %}
+        <tr>
+            <td>
+                {{ user.id }}
+            </td>
+            <td>
+                {{ user.firstname }}
+            </td>
+            <td>
+                {{ user.lastname }}
+            </td>
+        </tr>
+    
+{% endfor %}
+</table>
+
+{% endblock %}
