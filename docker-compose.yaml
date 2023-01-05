@@ -11,15 +11,16 @@ services:
     environment:
       FLASK_DEBUG: 1
       FLASK_APP: ./app.py
-      POSTGRES_DB: docker
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - 5000:5000
     volumes:
       - ./flask:/app
   db:
-    image: postgres:latest
+    build:
+      context: ./psql/
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -30,5 +31,31 @@ services:
     volumes:
       - ./psql/init:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "su", "postgres", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 2s
+      timeout: 60s
+      retries: 5
+      start_period: 80s  
+  
+  api:
+    build:
+      context: ./api/
+    entrypoint:
+      - uvicorn
+      - app.main:app
+      - --reload
+      - --host=0.0.0.0
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/api
+    depends_on:
+      db:
+        condition: service_healthy
+  
+      
+
+
 volumes:
   pgdata:

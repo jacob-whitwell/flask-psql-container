@@ -5,7 +5,7 @@ GRANT USAGE ON SCHEMA public TO docker;
 GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
 
 -- Connect to the docker database before creating the table
-\c docker
+\c postgres
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -13,6 +13,7 @@ CREATE TABLE users (
     lastname VARCHAR(30) NOT NULL
 );
 
+-- Finally, populate the table upon first start up
 INSERT INTO users VALUES (1, 'jay', 'whitwell'),
 (2, 'destina', 'bartley'),
 (3, 'huthayfa', 'patel');

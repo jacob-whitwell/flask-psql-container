@@ -1,7 +1,7 @@
 FROM postgres:latest
-ENV POSTGRES_USER docker
-ENV POSTGRES_PASSWORD docker
-ENV POSTGRES_DB docker
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD postgres
+ENV POSTGRES_DB postgres
 
 #FROM library/postgres
-ADD init.sql /docker-entrypoint-initdb.d/
+ADD ./init/init.sql /docker-entrypoint-initdb.d/

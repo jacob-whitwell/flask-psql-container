@@ -1,8 +1,8 @@
 FROM python:3.7
 ENV FLASK_ENV development
-ENV POSTGRES_DB docker
-ENV POSTGRES_USER docker
-ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB postgres
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD postgres
 WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
